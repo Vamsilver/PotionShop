@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="46c5ecaedad54d80b41a753859c50fda" Name="Diagram1" ZoomLevel="77">
+        <EntityTypeShape EntityType="PotionShopModel.Authorization" Width="1.5" PointX="5.25" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PotionShopModel.Consumable" Width="1.5" PointX="8.25" PointY="20" IsExpanded="true" />
+        <EntityTypeShape EntityType="PotionShopModel.ConsumableKeeping" Width="1.5" PointX="10.5" PointY="18.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PotionShopModel.Discount" Width="1.5" PointX="6" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PotionShopModel.Marketing" Width="1.5" PointX="5.25" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PotionShopModel.Potion" Width="1.5" PointX="6" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PotionShopModel.PotionKeeping" Width="1.5" PointX="8.25" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PotionShopModel.PotionType" Width="1.5" PointX="3.75" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PotionShopModel.Role" Width="1.5" PointX="0.75" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PotionShopModel.Sale" Width="1.5" PointX="8.25" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PotionShopModel.Storage" Width="1.5" PointX="6" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="PotionShopModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PotionShopModel.TypeConsumable" Width="1.5" PointX="6" PointY="19.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PotionShopModel.TypeStorage" Width="1.5" PointX="3.75" PointY="16.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PotionShopModel.UnitOfMeasurement" Width="1.5" PointX="6" PointY="21.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PotionShopModel.User" Width="1.5" PointX="3" PointY="6" IsExpanded="true" />
+        <AssociationConnector Association="PotionShopModel.FK_Authorization_User" ManuallyRouted="false" />
+        <AssociationConnector Association="PotionShopModel.FK_Consumable_TypeConsumable" ManuallyRouted="false" />
+        <AssociationConnector Association="PotionShopModel.FK_Consumable_UnitOfMeasurement" ManuallyRouted="false" />
+        <AssociationConnector Association="PotionShopModel.FK_ConsumableKeeping_Consumable" ManuallyRouted="false" />
+        <AssociationConnector Association="PotionShopModel.FK_ConsumableKeeping_Storage" ManuallyRouted="false" />
+        <AssociationConnector Association="PotionShopModel.FK_Sale_Discount" ManuallyRouted="false" />
+        <AssociationConnector Association="PotionShopModel.FK_Marketing_User" ManuallyRouted="false" />
+        <AssociationConnector Association="PotionShopModel.FK_Potion_PotionType" ManuallyRouted="false" />
+        <AssociationConnector Association="PotionShopModel.FK_PotionKeeping_Potion" ManuallyRouted="false" />
+        <AssociationConnector Association="PotionShopModel.FK_Sale_Potion" ManuallyRouted="false" />
+        <AssociationConnector Association="PotionShopModel.FK_PotionKeeping_Storage" ManuallyRouted="false" />
+        <AssociationConnector Association="PotionShopModel.FK_User_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="PotionShopModel.FK_Sale_Storage" ManuallyRouted="false" />
+        <AssociationConnector Association="PotionShopModel.FK_Sale_User" ManuallyRouted="false" />
+        <AssociationConnector Association="PotionShopModel.FK_Storage_TypeStorage" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="PotionShopModel.BuyerShop" Width="1.5" PointX="3.375" PointY="0.875" />
+        <AssociationConnector Association="PotionShopModel.FK_Sale_BuyerShop" />
+        <EntityTypeShape EntityType="PotionShopModel.ConsumablesUsing" Width="1.5" PointX="10.5" PointY="14.5" />
+        <EntityTypeShape EntityType="PotionShopModel.Production" Width="1.5" PointX="12.75" PointY="10.5" />
+        <AssociationConnector Association="PotionShopModel.FK_ConsumablesUsing_Consumable" />
+        <AssociationConnector Association="PotionShopModel.FK_ConsumablesUsing_Potion" />
+        <AssociationConnector Association="PotionShopModel.FK_Production_ConsumablesUsing" />
+        <AssociationConnector Association="PotionShopModel.FK_Production_User" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
