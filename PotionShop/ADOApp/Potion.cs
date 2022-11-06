@@ -17,21 +17,21 @@ namespace PotionShop.ADOApp
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Potion()
         {
+            this.ConsumablesUsing = new HashSet<ConsumablesUsing>();
             this.PotionKeeping = new HashSet<PotionKeeping>();
             this.Sale = new HashSet<Sale>();
-            this.ConsumablesUsing = new HashSet<ConsumablesUsing>();
         }
     
         public int IdPotion { get; set; }
         public int IdType { get; set; }
         public string Name { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ConsumablesUsing> ConsumablesUsing { get; set; }
         public virtual PotionType PotionType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PotionKeeping> PotionKeeping { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sale> Sale { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ConsumablesUsing> ConsumablesUsing { get; set; }
     }
 }

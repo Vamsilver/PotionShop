@@ -23,10 +23,10 @@ namespace PotionShop.ADOApp
         public int IdDiscount { get; set; }
         public int Cost { get; set; }
     
+        public virtual BuyerShop BuyerShop { get; set; }
         public virtual Discount Discount { get; set; }
         public virtual Potion Potion { get; set; }
         public virtual Storage Storage { get; set; }
         public virtual User User { get; set; }
-        public virtual BuyerShop BuyerShop { get; set; }
     }
 }

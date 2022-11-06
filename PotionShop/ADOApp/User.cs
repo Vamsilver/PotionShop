@@ -19,8 +19,8 @@ namespace PotionShop.ADOApp
         {
             this.Authorization = new HashSet<Authorization>();
             this.Marketing = new HashSet<Marketing>();
-            this.Sale = new HashSet<Sale>();
             this.Production = new HashSet<Production>();
+            this.Sale = new HashSet<Sale>();
         }
     
         public int IdUser { get; set; }
@@ -31,10 +31,10 @@ namespace PotionShop.ADOApp
         public virtual ICollection<Authorization> Authorization { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Marketing> Marketing { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Production> Production { get; set; }
         public virtual Role Role { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sale> Sale { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Production> Production { get; set; }
     }
 }
