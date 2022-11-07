@@ -30,13 +30,17 @@ namespace PotionShop.PagesApp
         Potion selectPotion;
         Consumable selectConsumable;
 
+        UserAuth userAuth;
+
         string strSelectPotion = "";
         string strSelectConsumable = "";
 
-        public EmployeeWorkPage()
+        public EmployeeWorkPage(UserAuth user)
         {
             InitializeComponent();
             RefreshPage();
+
+            userAuth = user;
         }
 
         public void RefreshPage()
@@ -85,6 +89,8 @@ namespace PotionShop.PagesApp
         {
             ConsumablesUsing newConsumableUsing = new ConsumablesUsing();
 
+            
+
 
             newConsumableUsing.Count = Convert.ToInt32(txtCountConsumable.Text);
             newConsumableUsing.IdPotion = FindByNamePotion();
@@ -94,6 +100,24 @@ namespace PotionShop.PagesApp
 
             DBConnection.Connection.SaveChanges();
             SetCountConsumableUsing();
+
+
+            Production production = new Production();
+
+            List<ConsumablesUsing> listConsumable =  DBConnection.Connection.ConsumablesUsing.ToList();
+
+
+            foreach(var item in listConsumable)
+            {
+                production.IdConsumablesUsing = item.IdConsumablesUsing;
+            }
+
+
+          
+            production.IdUser = userAuth.IdUser;
+
+            DBConnection.Connection.SaveChanges();
+
             MessageBox.Show("success!");
         }
 

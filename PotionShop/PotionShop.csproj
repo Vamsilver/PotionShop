@@ -173,6 +173,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ClassApp\DBConnection.cs" />
+    <Compile Include="ClassApp\UserAuth.cs" />
     <Compile Include="PagesApp\AuthorizationPage.xaml.cs">
       <DependentUpon>AuthorizationPage.xaml</DependentUpon>
     </Compile>
