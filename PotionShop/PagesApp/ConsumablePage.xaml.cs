@@ -13,8 +13,8 @@ namespace PotionShop.PagesApp
         List<TypeConsumable> listConsumable;
         List<UnitOfMeasurement> listMeasur;
 
-        TypeConsumable selectConsum;
-        UnitOfMeasurement selectMeasur;
+        string strSelectMeasur = "";
+        string strSelectConsumable = "";
 
         public ConsumablePage()
         {
@@ -41,7 +41,7 @@ namespace PotionShop.PagesApp
             foreach (TypeConsumable item in listConsumable)
             {
                 cmbBoxTypeConsumable.Items.Add(item.TypeName);
-                selectConsum = item;
+
             }
         }
 
@@ -52,14 +52,14 @@ namespace PotionShop.PagesApp
             foreach (UnitOfMeasurement item in listMeasur)
             {
                 cmbBoxUnitOfMeasurement.Items.Add(item.Name);
-                selectMeasur = item;
+
             }
         }
 
         public void SetListConsumable()
         {
             listBoxTypeConsum.Items.Clear();
-           listAllConsumable = new List<Consumable>();
+            listAllConsumable = new List<Consumable>();
             listAllConsumable = DBConnection.Connection.Consumable.ToList();
             foreach (Consumable item in listAllConsumable)
             {
@@ -76,8 +76,8 @@ namespace PotionShop.PagesApp
 
 
             newConsumable.Name = txtNameConsumable.Text;
-            newConsumable.IdType = selectConsum.IdTypeConsumable;
-            newConsumable.IdUnitOfMeasurement = selectMeasur.IdUnitOfMeasurement;
+            newConsumable.IdType = FindByNameConsumable();
+            newConsumable.IdUnitOfMeasurement = FindByNameMeasurement();
 
             DBConnection.Connection.Consumable.Add(newConsumable);
 
@@ -88,15 +88,41 @@ namespace PotionShop.PagesApp
 
         private void cmbBoxTypeConsumable_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
-            //MessageBox.Show(selectConsum.TypeName);
-     
+            strSelectConsumable = cmbBoxTypeConsumable.SelectedItem.ToString();
         }
 
         private void cmbBoxUnitOfMeasurement_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //MessageBox.Show(selectConsum.TypeName);
-          
+            strSelectMeasur = cmbBoxUnitOfMeasurement.SelectedItem.ToString();
+        }
+
+
+        public int FindByNameMeasurement()
+        {
+            int index = 0;
+
+            foreach (var item in listMeasur)
+            {
+                if (strSelectMeasur == item.Name)
+                {
+                    index = item.IdUnitOfMeasurement;
+                }
+            }
+            return index;
+        }
+
+        public int FindByNameConsumable()
+        {
+            int index = 0;
+
+            foreach (var item in listConsumable)
+            {
+                if (strSelectConsumable == item.TypeName)
+                {
+                    index = item.IdTypeConsumable;
+                }
+            }
+            return index;
         }
     }
 }

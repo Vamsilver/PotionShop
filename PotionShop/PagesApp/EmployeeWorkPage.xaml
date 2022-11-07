@@ -36,13 +36,6 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <ListBox
-            x:Name="listBoxTypeConsum"
-            Grid.Row="1"
-            Grid.ColumnSpan="2"
-            Background="AliceBlue"
-            Margin="10,56,35,28" Grid.RowSpan="5"/>
-
 
         <TextBlock
             Grid.Column="3" 
@@ -79,7 +72,7 @@
             Grid.ColumnSpan="3"
             Margin="0,40,0,0" 
             Grid.RowSpan="2" 
-            Height="25" SelectionChanged="cmbBoxTypeConsumable_SelectionChanged"/>
+            Height="25" SelectionChanged="cmbBoxPotion_SelectionChanged" />
 
 
         <ComboBox
@@ -92,7 +85,7 @@
             Grid.ColumnSpan="3"
             Margin="0,40,0,0" 
             Grid.RowSpan="2" 
-            Height="25" SelectionChanged="cmbBoxUnitOfMeasurement_SelectionChanged"/>
+            Height="25" SelectionChanged="cmbBoxConsumable_SelectionChanged"/>
 
         <Button 
             Grid.Column="4"
@@ -104,21 +97,20 @@
 
 
         <TextBlock 
-            Grid.Column="4"
-            HorizontalAlignment="Right" 
-            Margin="0,0,5,0"
+            Grid.Column="3"
+            HorizontalAlignment="Left" 
+            Margin="71,0,0,0"
             TextWrapping="Wrap" 
             Text="Emloyee worktable" 
-            VerticalAlignment="Center"/>
+            VerticalAlignment="Center" Grid.ColumnSpan="3" Width="128"/>
 
 
         <Button 
             Content="Create consumable" 
             HorizontalAlignment="Left" 
-            Margin="24,10,0,0"
+            Margin="24,24,0,0"
             
-            VerticalAlignment="Top"
-            Grid.Row="1" Grid.ColumnSpan="2" Click="Create_Consumable"
+            VerticalAlignment="Top" Grid.ColumnSpan="2" Click="Create_Consumable"
            
             />
 

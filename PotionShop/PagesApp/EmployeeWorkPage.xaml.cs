@@ -30,6 +30,9 @@ namespace PotionShop.PagesApp
         Potion selectPotion;
         Consumable selectConsumable;
 
+        string strSelectPotion = "";
+        string strSelectConsumable = "";
+
         public EmployeeWorkPage()
         {
             InitializeComponent();
@@ -76,15 +79,7 @@ namespace PotionShop.PagesApp
             NavigationService.Navigate(new ConsumablePage());
         }
 
-        private void cmbBoxTypeConsumable_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void cmbBoxUnitOfMeasurement_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
+ 
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -92,14 +87,52 @@ namespace PotionShop.PagesApp
 
 
             newConsumableUsing.Count = Convert.ToInt32(txtCountConsumable.Text);
-            newConsumableUsing.IdPotion = selectPotion.IdPotion;
-            newConsumableUsing.IdConsumable = selectConsumable.IdConsumable;
+            newConsumableUsing.IdPotion = FindByNamePotion();
+            newConsumableUsing.IdConsumable = FindByNameConsumable();
 
             DBConnection.Connection.ConsumablesUsing.Add(newConsumableUsing);
 
             DBConnection.Connection.SaveChanges();
             SetCountConsumableUsing();
             MessageBox.Show("success!");
+        }
+
+        public int FindByNamePotion()
+        {
+            int index = 0;
+
+            foreach (Potion item in listPotion)
+            {
+                if (strSelectPotion == item.Name)
+                {
+                    index = item.IdPotion;
+                }
+            }
+            return index;
+        }
+
+        public int FindByNameConsumable()
+        {
+            int index = 0;
+
+            foreach (var item in listConsumable)
+            {
+                if (strSelectConsumable == item.Name)
+                {
+                    index = item.IdConsumable;
+                }
+            }
+            return index;
+        }
+
+        private void cmbBoxConsumable_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            strSelectConsumable = cmbBoxConsumable.SelectedItem.ToString();
+        }
+
+        private void cmbBoxPotion_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            strSelectPotion = cmbBoxPotion.SelectedItem.ToString();
         }
     }
 }
