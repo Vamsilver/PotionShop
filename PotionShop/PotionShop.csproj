@@ -80,6 +80,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="PagesApp\ReceptPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="PagesApp\RegistrationPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -189,6 +193,9 @@
     </Compile>
     <Compile Include="PagesApp\PurchasePage.xaml.cs">
       <DependentUpon>PurchasePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PagesApp\ReceptPage.xaml.cs">
+      <DependentUpon>ReceptPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="PagesApp\RegistrationPage.xaml.cs">
       <DependentUpon>RegistrationPage.xaml</DependentUpon>

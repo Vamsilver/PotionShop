@@ -23,9 +23,14 @@ namespace PotionShop.PagesApp
     public partial class EmployeeWorkPage : Page
     {
 
-        List<ConsumablesUsing> listConsumableUsing;
+    
         List<Potion> listPotion;
-        List<Consumable> listConsumable;
+        List<ConsumablesUsing> listConsumableUsing;
+
+        List<Production> listProductions;
+
+        List<PotionKeeping> listPotionKeeping;
+        List<Storage> listStorage;
 
         Potion selectPotion;
         Consumable selectConsumable;
@@ -33,7 +38,7 @@ namespace PotionShop.PagesApp
         UserAuth userAuth;
 
         string strSelectPotion = "";
-        string strSelectConsumable = "";
+        string strSelectStorage = "";
 
         public EmployeeWorkPage(UserAuth user)
         {
@@ -45,19 +50,49 @@ namespace PotionShop.PagesApp
 
         public void RefreshPage()
         {
-            SetConsumable();
+            listBoxPotionKeeping.Items.Clear();
+            listBoxProduct.Items.Clear();
+            listBoxRecpts.Items.Clear();
+            cmbBoxPotion.Items.Clear();
+            cmbBoxStorage.Items.Clear();
+
+            SetConsumableUsing();
             SetPotion();
-            SetCountConsumableUsing();
+            SetStorage();
+            SetPotionKeeping();
+            SetProduction();
         }
 
-        public void SetConsumable()
+        public void SetConsumableUsing()
         {
-            listConsumable = new List<Consumable>();
-            listConsumable = DBConnection.Connection.Consumable.ToList();
-            foreach (Consumable item in listConsumable)
+            listConsumableUsing = new List<ConsumablesUsing>();
+            listConsumableUsing = DBConnection.Connection.ConsumablesUsing.ToList();
+
+            foreach (ConsumablesUsing item in listConsumableUsing)
             {
-                cmbBoxConsumable.Items.Add(item.Name);
-                selectConsumable = item;
+                listBoxRecpts.Items.Add(FindByIdPotion(item.IdPotion) + " | " + FindByIdConsumable(item.IdConsumable) + " | " + item.Count + " шт.");
+            }
+        }
+
+        public void SetPotionKeeping()
+        {
+            listPotionKeeping = new List<PotionKeeping>();
+            listPotionKeeping = DBConnection.Connection.PotionKeeping.ToList();
+
+            foreach (PotionKeeping item in listPotionKeeping)
+            {
+                listBoxPotionKeeping.Items.Add(FindByIdPotion(item.IdPotion) + " | " + FindByIdStorage(item.IdStorage) + " | " + item.Count + " шт.");
+            }
+        }
+
+        public void SetProduction()
+        {
+            listProductions = new List<Production>();
+            listProductions = DBConnection.Connection.Production.ToList();
+
+            foreach (Production item in listProductions)
+            {
+                listBoxProduct.Items.Add("№ " + item.IdConsumablesUsing + " | " + FindByIdUser(item.IdUser));
             }
         }
 
@@ -72,9 +107,14 @@ namespace PotionShop.PagesApp
             }
         }
 
-        public void SetCountConsumableUsing()
+        public void SetStorage()
         {
-         
+            listStorage = new List<Storage>();
+            listStorage = DBConnection.Connection.Storage.ToList();
+            foreach (Storage item in listStorage)
+            {
+                cmbBoxStorage.Items.Add(item.Address);
+            }
         }
 
 
@@ -83,7 +123,12 @@ namespace PotionShop.PagesApp
             NavigationService.Navigate(new ConsumablePage());
         }
 
- 
+
+        private void Create_Recept(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new ReceptPage(userAuth));
+        }
+
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -92,14 +137,14 @@ namespace PotionShop.PagesApp
             
 
 
-            newConsumableUsing.Count = Convert.ToInt32(txtCountConsumable.Text);
-            newConsumableUsing.IdPotion = FindByNamePotion();
-            newConsumableUsing.IdConsumable = FindByNameConsumable();
+            //newConsumableUsing.Count = Convert.ToInt32(txtCountConsumable.Text);
+            //newConsumableUsing.IdPotion = FindByNamePotion();
+            //newConsumableUsing.IdConsumable = FindByNameConsumable();
 
-            DBConnection.Connection.ConsumablesUsing.Add(newConsumableUsing);
+            //DBConnection.Connection.ConsumablesUsing.Add(newConsumableUsing);
 
-            DBConnection.Connection.SaveChanges();
-            SetCountConsumableUsing();
+            //DBConnection.Connection.SaveChanges();
+            //SetCountConsumableUsing();
 
 
             Production production = new Production();
@@ -135,28 +180,144 @@ namespace PotionShop.PagesApp
             return index;
         }
 
-        public int FindByNameConsumable()
+        public int FindByNameStorage()
         {
             int index = 0;
 
-            foreach (var item in listConsumable)
+            foreach (var item in listStorage)
             {
-                if (strSelectConsumable == item.Name)
+                if (strSelectStorage == item.Address)
                 {
-                    index = item.IdConsumable;
+                    index = item.IdStorage;
                 }
             }
             return index;
         }
 
-        private void cmbBoxConsumable_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        public String FindByIdPotion(int idPotion)
         {
-            strSelectConsumable = cmbBoxConsumable.SelectedItem.ToString();
+            listPotion = new List<Potion>();
+            listPotion = DBConnection.Connection.Potion.ToList();
+            String name = "";
+
+            foreach (Potion item in listPotion)
+            {
+                if (idPotion == item.IdPotion)
+                {
+                    name = item.Name;
+                }
+            }
+            return name;
+        }
+
+        public String FindByIdConsumable(int idConsumable)
+        {
+            List<Consumable> listConsumable = new List<Consumable>();
+            listConsumable = DBConnection.Connection.Consumable.ToList();
+            String name = "";
+
+            foreach (Consumable item in listConsumable)
+            {
+                if (idConsumable == item.IdConsumable)
+                {
+                    name = item.Name;
+                }
+            }
+            return name;
+        }
+
+        public String FindByIdStorage(int idStorage)
+        {
+            List<Storage> listStorage = new List<Storage>();
+            listStorage = DBConnection.Connection.Storage.ToList();
+            String name = "";
+
+            foreach (Storage item in listStorage)
+            {
+                if (idStorage == item.IdStorage)
+                {
+                    name = item.Address;
+                }
+            }
+            return name;
+        }
+
+        public String FindByIdUser(int idUser)
+        {
+            List<User> listPotion = new List<User>();
+            listPotion = DBConnection.Connection.User.ToList();
+            String name = "";
+
+            foreach (User item in listPotion)
+            {
+                if (idUser == item.IdUser)
+                {
+                    name = item.Name;
+                }
+            }
+            return name;
         }
 
         private void cmbBoxPotion_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            strSelectPotion = cmbBoxPotion.SelectedItem.ToString();
+       
+            try
+            {
+                strSelectPotion = cmbBoxPotion.SelectedItem.ToString();
+            }
+            catch(Exception ex)
+            {
+
+            }
+  
         }
+
+        private void cmbBoxStorage_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+       
+            try
+            {
+                strSelectStorage = cmbBoxStorage.SelectedItem.ToString();
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        private void Button_StorageKeeping(object sender, RoutedEventArgs e)
+        {
+
+            PotionKeeping potionKeeping = new PotionKeeping();
+
+            potionKeeping.IdStorage = FindByNameStorage();
+            potionKeeping.IdPotion = FindByNamePotion();
+            potionKeeping.Count = int.Parse(txtCntPotion.Text.ToString());
+
+            DBConnection.Connection.PotionKeeping.Add(potionKeeping);
+            DBConnection.Connection.SaveChanges();
+
+            RefreshPage();
+
+            //Consumable newConsumable = new Consumable();
+
+
+            //newConsumable.Name = txtNameConsumable.Text;
+            //newConsumable.IdType = FindByNameConsumable();
+            //newConsumable.IdUnitOfMeasurement = FindByNameMeasurement();
+
+            //DBConnection.Connection.Consumable.Add(newConsumable);
+
+            //DBConnection.Connection.SaveChanges();
+            //SetListConsumable();
+            //MessageBox.Show("success!");
+        }
+
+        private void Button_Refresh(object sender, RoutedEventArgs e)
+        {
+            RefreshPage();
+        }
+
+
     }
 }
