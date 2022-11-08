@@ -1,11 +1,11 @@
 ﻿using PotionShop.ADOApp;
+using PotionShop.ClassApp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using PotionShop.ClassApp;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -17,12 +17,9 @@ using System.Windows.Shapes;
 
 namespace PotionShop.PagesApp
 {
-    /// <summary>
-    /// Interaction logic for EmployeeWorkPage.xaml
-    /// </summary>
-    public partial class EmployeeWorkPage : Page
-    {
 
+    public partial class ReceptPage : Page
+    {
         List<ConsumablesUsing> listConsumableUsing;
         List<Potion> listPotion;
         List<Consumable> listConsumable;
@@ -35,12 +32,11 @@ namespace PotionShop.PagesApp
         string strSelectPotion = "";
         string strSelectConsumable = "";
 
-        public EmployeeWorkPage(UserAuth user)
+        public ReceptPage(UserAuth user)
         {
             InitializeComponent();
-            RefreshPage();
-
             userAuth = user;
+            RefreshPage();
         }
 
         public void RefreshPage()
@@ -74,7 +70,7 @@ namespace PotionShop.PagesApp
 
         public void SetCountConsumableUsing()
         {
-         
+
         }
 
 
@@ -84,17 +80,12 @@ namespace PotionShop.PagesApp
         }
 
 
-        private void Create_Recept(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new ReceptPage(userAuth));
-        }
-
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             ConsumablesUsing newConsumableUsing = new ConsumablesUsing();
 
-            
+
 
 
             newConsumableUsing.Count = Convert.ToInt32(txtCountConsumable.Text);
@@ -109,16 +100,16 @@ namespace PotionShop.PagesApp
 
             Production production = new Production();
 
-            List<ConsumablesUsing> listConsumable =  DBConnection.Connection.ConsumablesUsing.ToList();
+            List<ConsumablesUsing> listConsumable = DBConnection.Connection.ConsumablesUsing.ToList();
 
 
-            foreach(var item in listConsumable)
+            foreach (var item in listConsumable)
             {
                 production.IdConsumablesUsing = item.IdConsumablesUsing;
             }
 
 
-          
+
             production.IdUser = userAuth.IdUser;
 
             DBConnection.Connection.SaveChanges();
