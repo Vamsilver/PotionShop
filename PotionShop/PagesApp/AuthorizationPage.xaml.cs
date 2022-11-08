@@ -38,23 +38,17 @@ namespace PotionShop.PagesApp
                     var DataLogin = DBConnection.Connection.Authorization.Where(z => z.Login == TxtLogin.Text && z.Password == TxtPassword.Password).FirstOrDefault();
                     if (DataLogin != null)
                     {
-
                         UserAuth user = new UserAuth();
 
                         user.IdUser = DataLogin.User.IdUser;
                         user.Name = DataLogin.User.Name;
                         user.IdRole = DataLogin.User.IdRole;
 
-
-                      //  MessageBox.Show(user.IdUser + " " + user.Name + " " + user.IdRole);
-
-
-
                         TxtLogin.Text = "";
                         switch (DataLogin.User.IdRole)
                         {
                             case 1:
-                                 NavigationService.Navigate(new SalesManagerWorkPage());
+                                 NavigationService.Navigate(new SalesManagerWorkPage(user));
                                 break;
                             case 2:
                                 NavigationService.Navigate(new EmployeeWorkPage(user));
@@ -62,10 +56,7 @@ namespace PotionShop.PagesApp
                             case 3:
                                 NavigationService.Navigate(new ShoppingManagerWorkPage());
                                 break;
-                        }
-
-                     
-                            
+                        }     
                     }
                     else
                     {

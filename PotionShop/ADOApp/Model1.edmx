@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="PotionShopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="PotionShopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Authorization">
           <Key>
             <PropertyRef Name="IdAuthorization" />
@@ -124,6 +124,16 @@
           <Property Name="IdStorage" Type="int" Nullable="false" />
           <Property Name="Address" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="IdTypeStorage" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="TypeConsumable">
           <Key>
@@ -409,6 +419,7 @@
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sale" EntityType="Self.Sale" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Storage" EntityType="Self.Storage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TypeConsumable" EntityType="Self.TypeConsumable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TypeStorage" EntityType="Self.TypeStorage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UnitOfMeasurement" EntityType="Self.UnitOfMeasurement" Schema="dbo" store:Type="Tables" />
@@ -494,8 +505,7 @@
             <End Role="User" EntitySet="User" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PotionShopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -516,7 +526,7 @@
           <Property Name="IdBuyerShop" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Sale" Relationship="Self.FK_Sale_BuyerShop" FromRole="BuyerShop" ToRole="Sale" />
+          <NavigationProperty Name="Sale" Relationship="PotionShopModel.FK_Sale_BuyerShop" FromRole="BuyerShop" ToRole="Sale" />
         </EntityType>
         <EntityType Name="Consumable">
           <Key>
@@ -561,7 +571,7 @@
           <Property Name="IdDiscount" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RequiredQuantity" Type="Int32" Nullable="false" />
           <Property Name="DiscountValue" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Sale" Relationship="Self.FK_Sale_Discount" FromRole="Discount" ToRole="Sale" />
+          <NavigationProperty Name="Sale" Relationship="PotionShopModel.FK_Sale_Discount" FromRole="Discount" ToRole="Sale" />
         </EntityType>
         <EntityType Name="Marketing">
           <Key>
@@ -582,7 +592,7 @@
           <NavigationProperty Name="ConsumablesUsing" Relationship="Self.FK_ConsumablesUsing_Potion" FromRole="Potion" ToRole="ConsumablesUsing" />
           <NavigationProperty Name="PotionType" Relationship="Self.FK_Potion_PotionType" FromRole="Potion" ToRole="PotionType" />
           <NavigationProperty Name="PotionKeeping" Relationship="Self.FK_PotionKeeping_Potion" FromRole="Potion" ToRole="PotionKeeping" />
-          <NavigationProperty Name="Sale" Relationship="Self.FK_Sale_Potion" FromRole="Potion" ToRole="Sale" />
+          <NavigationProperty Name="Sale" Relationship="PotionShopModel.FK_Sale_Potion" FromRole="Potion" ToRole="Sale" />
         </EntityType>
         <EntityType Name="PotionKeeping">
           <Key>
@@ -621,24 +631,6 @@
           <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="User" Relationship="Self.FK_User_Role" FromRole="Role" ToRole="User" />
         </EntityType>
-        <EntityType Name="Sale">
-          <Key>
-            <PropertyRef Name="IdSale" />
-          </Key>
-          <Property Name="IdSale" Type="Int32" Nullable="false" />
-          <Property Name="IdUser" Type="Int32" Nullable="false" />
-          <Property Name="IdBuyerShop" Type="Int32" Nullable="false" />
-          <Property Name="IdPotion" Type="Int32" Nullable="false" />
-          <Property Name="IdStorage" Type="Int32" Nullable="false" />
-          <Property Name="Count" Type="Int32" Nullable="false" />
-          <Property Name="IdDiscount" Type="Int32" Nullable="false" />
-          <Property Name="Cost" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="BuyerShop" Relationship="Self.FK_Sale_BuyerShop" FromRole="Sale" ToRole="BuyerShop" />
-          <NavigationProperty Name="Discount" Relationship="Self.FK_Sale_Discount" FromRole="Sale" ToRole="Discount" />
-          <NavigationProperty Name="Potion" Relationship="Self.FK_Sale_Potion" FromRole="Sale" ToRole="Potion" />
-          <NavigationProperty Name="Storage" Relationship="Self.FK_Sale_Storage" FromRole="Sale" ToRole="Storage" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Sale_User" FromRole="Sale" ToRole="User" />
-        </EntityType>
         <EntityType Name="Storage">
           <Key>
             <PropertyRef Name="IdStorage" />
@@ -648,8 +640,18 @@
           <Property Name="IdTypeStorage" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ConsumableKeeping" Relationship="Self.FK_ConsumableKeeping_Storage" FromRole="Storage" ToRole="ConsumableKeeping" />
           <NavigationProperty Name="PotionKeeping" Relationship="Self.FK_PotionKeeping_Storage" FromRole="Storage" ToRole="PotionKeeping" />
-          <NavigationProperty Name="Sale" Relationship="Self.FK_Sale_Storage" FromRole="Storage" ToRole="Sale" />
           <NavigationProperty Name="TypeStorage" Relationship="Self.FK_Storage_TypeStorage" FromRole="Storage" ToRole="TypeStorage" />
+          <NavigationProperty Name="Sale" Relationship="PotionShopModel.FK_Sale_Storage" FromRole="Storage" ToRole="Sale" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="TypeConsumable">
           <Key>
@@ -686,7 +688,7 @@
           <NavigationProperty Name="Marketing" Relationship="Self.FK_Marketing_User" FromRole="User" ToRole="Marketing" />
           <NavigationProperty Name="Production" Relationship="Self.FK_Production_User" FromRole="User" ToRole="Production" />
           <NavigationProperty Name="Role" Relationship="Self.FK_User_Role" FromRole="User" ToRole="Role" />
-          <NavigationProperty Name="Sale" Relationship="Self.FK_Sale_User" FromRole="User" ToRole="Sale" />
+          <NavigationProperty Name="Sale" Relationship="PotionShopModel.FK_Sale_User" FromRole="User" ToRole="Sale" />
         </EntityType>
         <Association Name="FK_Authorization_User">
           <End Role="User" Type="Self.User" Multiplicity="1" />
@@ -697,18 +699,6 @@
             </Principal>
             <Dependent Role="Authorization">
               <PropertyRef Name="IdUser" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Sale_BuyerShop">
-          <End Role="BuyerShop" Type="Self.BuyerShop" Multiplicity="1" />
-          <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="BuyerShop">
-              <PropertyRef Name="IdBuyerShop" />
-            </Principal>
-            <Dependent Role="Sale">
-              <PropertyRef Name="IdBuyerShop" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -796,18 +786,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Sale_Discount">
-          <End Role="Discount" Type="Self.Discount" Multiplicity="1" />
-          <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Discount">
-              <PropertyRef Name="IdDiscount" />
-            </Principal>
-            <Dependent Role="Sale">
-              <PropertyRef Name="IdDiscount" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Marketing_User">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="Marketing" Type="Self.Marketing" Multiplicity="*" />
@@ -840,18 +818,6 @@
               <PropertyRef Name="IdPotion" />
             </Principal>
             <Dependent Role="PotionKeeping">
-              <PropertyRef Name="IdPotion" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Sale_Potion">
-          <End Role="Potion" Type="Self.Potion" Multiplicity="1" />
-          <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Potion">
-              <PropertyRef Name="IdPotion" />
-            </Principal>
-            <Dependent Role="Sale">
               <PropertyRef Name="IdPotion" />
             </Dependent>
           </ReferentialConstraint>
@@ -892,30 +858,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Sale_Storage">
-          <End Role="Storage" Type="Self.Storage" Multiplicity="1" />
-          <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Storage">
-              <PropertyRef Name="IdStorage" />
-            </Principal>
-            <Dependent Role="Sale">
-              <PropertyRef Name="IdStorage" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Sale_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="IdUser" />
-            </Principal>
-            <Dependent Role="Sale">
-              <PropertyRef Name="IdUser" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Storage_TypeStorage">
           <End Role="TypeStorage" Type="Self.TypeStorage" Multiplicity="1" />
           <End Role="Storage" Type="Self.Storage" Multiplicity="*" />
@@ -928,7 +870,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="PotionShopEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="PotionShopEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Authorization" EntityType="Self.Authorization" />
           <EntitySet Name="BuyerShop" EntityType="Self.BuyerShop" />
           <EntitySet Name="Consumable" EntityType="Self.Consumable" />
@@ -941,8 +883,8 @@
           <EntitySet Name="PotionType" EntityType="Self.PotionType" />
           <EntitySet Name="Production" EntityType="Self.Production" />
           <EntitySet Name="Role" EntityType="Self.Role" />
-          <EntitySet Name="Sale" EntityType="Self.Sale" />
           <EntitySet Name="Storage" EntityType="Self.Storage" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="TypeConsumable" EntityType="Self.TypeConsumable" />
           <EntitySet Name="TypeStorage" EntityType="Self.TypeStorage" />
           <EntitySet Name="UnitOfMeasurement" EntityType="Self.UnitOfMeasurement" />
@@ -950,10 +892,6 @@
           <AssociationSet Name="FK_Authorization_User" Association="Self.FK_Authorization_User">
             <End Role="User" EntitySet="User" />
             <End Role="Authorization" EntitySet="Authorization" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Sale_BuyerShop" Association="Self.FK_Sale_BuyerShop">
-            <End Role="BuyerShop" EntitySet="BuyerShop" />
-            <End Role="Sale" EntitySet="Sale" />
           </AssociationSet>
           <AssociationSet Name="FK_Consumable_TypeConsumable" Association="Self.FK_Consumable_TypeConsumable">
             <End Role="TypeConsumable" EntitySet="TypeConsumable" />
@@ -983,10 +921,6 @@
             <End Role="ConsumablesUsing" EntitySet="ConsumablesUsing" />
             <End Role="Production" EntitySet="Production" />
           </AssociationSet>
-          <AssociationSet Name="FK_Sale_Discount" Association="Self.FK_Sale_Discount">
-            <End Role="Discount" EntitySet="Discount" />
-            <End Role="Sale" EntitySet="Sale" />
-          </AssociationSet>
           <AssociationSet Name="FK_Marketing_User" Association="Self.FK_Marketing_User">
             <End Role="User" EntitySet="User" />
             <End Role="Marketing" EntitySet="Marketing" />
@@ -998,10 +932,6 @@
           <AssociationSet Name="FK_PotionKeeping_Potion" Association="Self.FK_PotionKeeping_Potion">
             <End Role="Potion" EntitySet="Potion" />
             <End Role="PotionKeeping" EntitySet="PotionKeeping" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Sale_Potion" Association="Self.FK_Sale_Potion">
-            <End Role="Potion" EntitySet="Potion" />
-            <End Role="Sale" EntitySet="Sale" />
           </AssociationSet>
           <AssociationSet Name="FK_PotionKeeping_Storage" Association="Self.FK_PotionKeeping_Storage">
             <End Role="Storage" EntitySet="Storage" />
@@ -1015,25 +945,116 @@
             <End Role="Role" EntitySet="Role" />
             <End Role="User" EntitySet="User" />
           </AssociationSet>
-          <AssociationSet Name="FK_Sale_Storage" Association="Self.FK_Sale_Storage">
-            <End Role="Storage" EntitySet="Storage" />
-            <End Role="Sale" EntitySet="Sale" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Sale_User" Association="Self.FK_Sale_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="Sale" EntitySet="Sale" />
-          </AssociationSet>
           <AssociationSet Name="FK_Storage_TypeStorage" Association="Self.FK_Storage_TypeStorage">
             <End Role="TypeStorage" EntitySet="TypeStorage" />
             <End Role="Storage" EntitySet="Storage" />
           </AssociationSet>
+          <EntitySet Name="Sale" EntityType="PotionShopModel.Sale" />
+          <AssociationSet Name="FK_Sale_BuyerShop" Association="PotionShopModel.FK_Sale_BuyerShop">
+            <End Role="BuyerShop" EntitySet="BuyerShop" />
+            <End Role="Sale" EntitySet="Sale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sale_Discount" Association="PotionShopModel.FK_Sale_Discount">
+            <End Role="Discount" EntitySet="Discount" />
+            <End Role="Sale" EntitySet="Sale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sale_Potion" Association="PotionShopModel.FK_Sale_Potion">
+            <End Role="Potion" EntitySet="Potion" />
+            <End Role="Sale" EntitySet="Sale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sale_Storage" Association="PotionShopModel.FK_Sale_Storage">
+            <End Role="Storage" EntitySet="Storage" />
+            <End Role="Sale" EntitySet="Sale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sale_User" Association="PotionShopModel.FK_Sale_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Sale" EntitySet="Sale" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Sale">
+          <Key>
+            <PropertyRef Name="IdSale" />
+          </Key>
+          <Property Name="IdSale" Type="Int32" Nullable="false" />
+          <Property Name="IdUser" Type="Int32" Nullable="false" />
+          <Property Name="IdBuyerShop" Type="Int32" Nullable="false" />
+          <Property Name="IdPotion" Type="Int32" Nullable="false" />
+          <Property Name="IdStorage" Type="Int32" Nullable="false" />
+          <Property Name="Count" Type="Int32" Nullable="false" />
+          <Property Name="IdDiscount" Type="Int32" Nullable="false" />
+          <Property Name="Cost" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="BuyerShop" Relationship="PotionShopModel.FK_Sale_BuyerShop" FromRole="Sale" ToRole="BuyerShop" />
+          <NavigationProperty Name="Discount" Relationship="PotionShopModel.FK_Sale_Discount" FromRole="Sale" ToRole="Discount" />
+          <NavigationProperty Name="Potion" Relationship="PotionShopModel.FK_Sale_Potion" FromRole="Sale" ToRole="Potion" />
+          <NavigationProperty Name="Storage" Relationship="PotionShopModel.FK_Sale_Storage" FromRole="Sale" ToRole="Storage" />
+          <NavigationProperty Name="User" Relationship="PotionShopModel.FK_Sale_User" FromRole="Sale" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Sale_BuyerShop">
+          <End Type="PotionShopModel.BuyerShop" Role="BuyerShop" Multiplicity="1" />
+          <End Type="PotionShopModel.Sale" Role="Sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BuyerShop">
+              <PropertyRef Name="IdBuyerShop" />
+            </Principal>
+            <Dependent Role="Sale">
+              <PropertyRef Name="IdBuyerShop" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sale_Discount">
+          <End Type="PotionShopModel.Discount" Role="Discount" Multiplicity="1" />
+          <End Type="PotionShopModel.Sale" Role="Sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Discount">
+              <PropertyRef Name="IdDiscount" />
+            </Principal>
+            <Dependent Role="Sale">
+              <PropertyRef Name="IdDiscount" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sale_Potion">
+          <End Type="PotionShopModel.Potion" Role="Potion" Multiplicity="1" />
+          <End Type="PotionShopModel.Sale" Role="Sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Potion">
+              <PropertyRef Name="IdPotion" />
+            </Principal>
+            <Dependent Role="Sale">
+              <PropertyRef Name="IdPotion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sale_Storage">
+          <End Type="PotionShopModel.Storage" Role="Storage" Multiplicity="1" />
+          <End Type="PotionShopModel.Sale" Role="Sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Storage">
+              <PropertyRef Name="IdStorage" />
+            </Principal>
+            <Dependent Role="Sale">
+              <PropertyRef Name="IdStorage" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sale_User">
+          <End Type="PotionShopModel.User" Role="User" Multiplicity="1" />
+          <End Type="PotionShopModel.Sale" Role="Sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="IdUser" />
+            </Principal>
+            <Dependent Role="Sale">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="PotionShopModelStoreContainer" CdmEntityContainer="PotionShopEntities1">
+        <EntityContainerMapping StorageEntityContainer="PotionShopModelStoreContainer" CdmEntityContainer="PotionShopEntities">
           <EntitySetMapping Name="Authorization">
             <EntityTypeMapping TypeName="PotionShopModel.Authorization">
               <MappingFragment StoreEntitySet="Authorization">
@@ -1145,26 +1166,23 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Sale">
-            <EntityTypeMapping TypeName="PotionShopModel.Sale">
-              <MappingFragment StoreEntitySet="Sale">
-                <ScalarProperty Name="IdSale" ColumnName="IdSale" />
-                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
-                <ScalarProperty Name="IdBuyerShop" ColumnName="IdBuyerShop" />
-                <ScalarProperty Name="IdPotion" ColumnName="IdPotion" />
-                <ScalarProperty Name="IdStorage" ColumnName="IdStorage" />
-                <ScalarProperty Name="Count" ColumnName="Count" />
-                <ScalarProperty Name="IdDiscount" ColumnName="IdDiscount" />
-                <ScalarProperty Name="Cost" ColumnName="Cost" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Storage">
             <EntityTypeMapping TypeName="PotionShopModel.Storage">
               <MappingFragment StoreEntitySet="Storage">
                 <ScalarProperty Name="IdStorage" ColumnName="IdStorage" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="IdTypeStorage" ColumnName="IdTypeStorage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="PotionShopModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1198,6 +1216,20 @@
                 <ScalarProperty Name="IdUser" ColumnName="IdUser" />
                 <ScalarProperty Name="IdRole" ColumnName="IdRole" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sale">
+            <EntityTypeMapping TypeName="PotionShopModel.Sale">
+              <MappingFragment StoreEntitySet="Sale">
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="IdDiscount" ColumnName="IdDiscount" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="IdStorage" ColumnName="IdStorage" />
+                <ScalarProperty Name="IdPotion" ColumnName="IdPotion" />
+                <ScalarProperty Name="IdBuyerShop" ColumnName="IdBuyerShop" />
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+                <ScalarProperty Name="IdSale" ColumnName="IdSale" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

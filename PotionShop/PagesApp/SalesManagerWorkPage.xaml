@@ -9,6 +9,6 @@
       Title="SalesManagerWorkPage">
 
     <Grid>
-        
+        <DataGrid x:Name="PotionGrid" AutoGenerateColumns="True" d:ItemsSource="{d:DynamicResource ResourceKey=potions}" IsReadOnly="True" PreviewKeyDown="PotionGrid_PreviewKeyDown" PreviewMouseDoubleClick="PotionGrid_PreviewMouseDoubleClick" />
     </Grid>
 </Page>
