@@ -5,7 +5,11 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:PotionShop.PagesApp"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+
+      
+      Height="450"
+      Width="800"
+      
       Title="EmployeeWorkPage">
 
 
@@ -36,74 +40,15 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-
-        <TextBlock 
-            HorizontalAlignment="Left"
-            Grid.Row="1"
-            TextAlignment="Center"
-            Grid.ColumnSpan="4"
-            Grid.RowSpan="4"
-            Background="AliceBlue"
-            TextWrapping="Wrap" 
-            Text="Consumable"
-            VerticalAlignment="Top" Height="196" Width="267" Margin="1,19,0,0" Grid.Column="3"/>
-
-        <TextBox
-            x:Name="txtCountConsumable"
-            Grid.Column="4" 
-            HorizontalAlignment="Left" 
-            VerticalContentAlignment="Center"
-           
-            Grid.Row="3" 
-    
-            BorderBrush="Black"
-            TextWrapping="Wrap" 
-            Text="0" 
-            TextAlignment="Center"
-          
-            Width="40" Height="26"
-            Grid.ColumnSpan="2" 
-            VerticalAlignment="Top"
-            Margin="88,3,0,0"/>
-
-        <ComboBox
-            x:Name="cmbBoxPotion"
-            Grid.Column="3"
-            HorizontalAlignment="Left"
-            Grid.Row="2"
-            VerticalAlignment="Top" 
-            Width="178"
-            Grid.ColumnSpan="3"
-            Margin="41,4,0,0" 
-            Height="26" SelectionChanged="cmbBoxPotion_SelectionChanged" />
-
-
-        <ComboBox
-            x:Name="cmbBoxConsumable"
-            Grid.Column="3"
-            Grid.Row="3"
-            VerticalAlignment="Top"
-            Grid.ColumnSpan="2"
-            Margin="41,3,5,0" 
-            Height="26" SelectionChanged="cmbBoxConsumable_SelectionChanged"/>
-
-        <Button 
-            Grid.Column="4"
-            Content="Create"
-            HorizontalAlignment="Left"
-            Margin="17,8,0,0" 
-            Grid.Row="4"
-            VerticalAlignment="Top" Click="Button_Click"/>
-
-
         <TextBlock 
             Grid.Column="3"
             HorizontalAlignment="Left" 
-            Margin="71,0,0,0"
+            Margin="77,3,0,0"
+            FontSize="20"
+            TextAlignment="Center"
             TextWrapping="Wrap" 
             Text="Emloyee worktable" 
-            VerticalAlignment="Center" Grid.ColumnSpan="3" Width="128"/>
-
+            VerticalAlignment="Top" Grid.ColumnSpan="3" Width="128"/>
 
         <Button 
             Content="Create consumable" 
@@ -126,15 +71,134 @@
             Grid.Column="1"
             />
 
+        <ListBox 
+            x:Name="listBoxRecpts"
+            Grid.ColumnSpan="3" 
+            Margin="44,34,73,34" 
+            Grid.RowSpan="5" 
+            Background="LightBlue"
+            Grid.Row="1"/>
+
+        <ListBox 
+            x:Name="listBoxPotionKeeping"
+            Grid.ColumnSpan="3" 
+            Margin="38,34,34,34" 
+            Grid.RowSpan="5" 
+            Background="LightBlue"
+            Grid.Row="1" Grid.Column="3"/>
+
+        <ListBox 
+            x:Name="listBoxProduct"
+            Grid.ColumnSpan="3" 
+            Margin="73,34,44,34" 
+            Grid.RowSpan="5" 
+            Background="LightBlue"
+            Grid.Row="1" Grid.Column="6"/>
+
 
         <TextBlock 
-            x:Name="txtCnt"
-            Grid.Column="5" 
+            Grid.Column="3"
             HorizontalAlignment="Left" 
-            Margin="40,0,0,0" 
+            Margin="38,34,0,0"
+            Grid.Row="5" 
+            TextWrapping="Wrap"
+            Text="Potion keeping" 
+            Background="LightGreen"
+            Grid.ColumnSpan="3" 
+            Grid.RowSpan="3"
+            TextAlignment="Center"
+            VerticalAlignment="Top"
+            Height="114"
+            Width="194"
+            />
+
+        <ComboBox
+            x:Name="cmbBoxStorage"
+            Grid.Column="3" 
+            HorizontalAlignment="Left" 
+            Grid.Row="6" 
+            VerticalAlignment="Top" 
+   
+            Width="100"
+            Grid.ColumnSpan="3" 
+            Margin="85,0,0,0" SelectionChanged="cmbBoxStorage_SelectionChanged" 
+            />
+
+        <ComboBox
+            x:Name="cmbBoxPotion"
+            Grid.Column="3" 
+            HorizontalAlignment="Left" 
+            Grid.Row="6" 
+            VerticalAlignment="Top" 
+  
+            Width="100"
+            Grid.ColumnSpan="3" 
+            Margin="85,30,0,0" SelectionChanged="cmbBoxPotion_SelectionChanged" 
+            />
+
+        <TextBox 
+            x:Name="txtCntPotion"
+            Grid.Column="5"
+            HorizontalAlignment="Left"
+            Margin="13,30,0,0"
+            Grid.Row="6" 
             TextWrapping="Wrap" 
-            Text="" 
-            VerticalAlignment="Center"/>
+            Text="0" 
+            TextAlignment="Center"
+            VerticalAlignment="Top"
+            Width="30" 
+            Height="21"/>
+
+        <Button 
+            Grid.Column="4" 
+            Content="Add"
+            Padding="20, 1, 20,1"
+            HorizontalAlignment="Center"
+            Margin="0,10,0,0"
+            Grid.Row="7"
+            FontSize="10"
+            VerticalAlignment="Top"
+            RenderTransformOrigin="0.238,0.356"
+            Click="Button_StorageKeeping"/>
+
+
+        <Button 
+            Grid.Column="2" 
+            Content="Refresh"
+            HorizontalAlignment="Left"
+            Margin="39,24,0,0"
+            VerticalAlignment="Top" Click="Button_Refresh"
+            
+            />
+
+        <TextBlock 
+            Grid.Column="1" 
+            HorizontalAlignment="Left"
+            Margin="10,13,0,0"
+            Grid.Row="1" 
+            TextWrapping="Wrap"
+            Text="Recepts"
+            VerticalAlignment="Top"
+            RenderTransformOrigin="0.185,0.736"/>
+
+        <TextBlock 
+            Grid.Column="4" 
+            HorizontalAlignment="Left"
+            Grid.Row="1" 
+            TextWrapping="Wrap"
+            Text="Potion keeping"
+            VerticalAlignment="Top"
+            RenderTransformOrigin="0.185,0.736" Width="98" Margin="10,13,0,0" Grid.ColumnSpan="2"/>
+
+        <TextBlock 
+            Grid.Column="7" 
+            HorizontalAlignment="Left"
+            Margin="38,13,0,0"
+            Grid.Row="1" 
+            TextWrapping="Wrap"
+            Text="Products"
+            VerticalAlignment="Top"
+            RenderTransformOrigin="0.185,0.736"/>
 
     </Grid>
 </Page>

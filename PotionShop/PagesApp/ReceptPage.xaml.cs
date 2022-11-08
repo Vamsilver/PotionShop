@@ -41,9 +41,11 @@ namespace PotionShop.PagesApp
 
         public void RefreshPage()
         {
+           
+
             SetConsumable();
             SetPotion();
-            SetCountConsumableUsing();
+   
         }
 
         public void SetConsumable()
@@ -53,7 +55,7 @@ namespace PotionShop.PagesApp
             foreach (Consumable item in listConsumable)
             {
                 cmbBoxConsumable.Items.Add(item.Name);
-                selectConsumable = item;
+         
             }
         }
 
@@ -64,13 +66,7 @@ namespace PotionShop.PagesApp
             foreach (Potion item in listPotion)
             {
                 cmbBoxPotion.Items.Add(item.Name);
-                selectPotion = item;
             }
-        }
-
-        public void SetCountConsumableUsing()
-        {
-
         }
 
 
@@ -95,7 +91,7 @@ namespace PotionShop.PagesApp
             DBConnection.Connection.ConsumablesUsing.Add(newConsumableUsing);
 
             DBConnection.Connection.SaveChanges();
-            SetCountConsumableUsing();
+          
 
 
             Production production = new Production();
@@ -112,6 +108,7 @@ namespace PotionShop.PagesApp
 
             production.IdUser = userAuth.IdUser;
 
+            DBConnection.Connection.Production.Add(production);
             DBConnection.Connection.SaveChanges();
 
             MessageBox.Show("success!");
@@ -126,6 +123,7 @@ namespace PotionShop.PagesApp
                 if (strSelectPotion == item.Name)
                 {
                     index = item.IdPotion;
+                  //  MessageBox.Show(item.IdPotion.ToString() + " " + item.Name);
                 }
             }
             return index;
@@ -140,6 +138,7 @@ namespace PotionShop.PagesApp
                 if (strSelectConsumable == item.Name)
                 {
                     index = item.IdConsumable;
+                  //  MessageBox.Show(item.IdConsumable.ToString() + " " + item.Name);
                 }
             }
             return index;
@@ -148,11 +147,13 @@ namespace PotionShop.PagesApp
         private void cmbBoxConsumable_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             strSelectConsumable = cmbBoxConsumable.SelectedItem.ToString();
+            // MessageBox.Show(strSelectConsumable);
         }
 
         private void cmbBoxPotion_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             strSelectPotion = cmbBoxPotion.SelectedItem.ToString();
+            // MessageBox.Show(strSelectPotion);
         }
     }
 }

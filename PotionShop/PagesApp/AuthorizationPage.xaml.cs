@@ -46,7 +46,7 @@ namespace PotionShop.PagesApp
                         user.IdRole = DataLogin.User.IdRole;
 
 
-                        MessageBox.Show(user.IdUser + " " + user.Name + " " + user.IdRole);
+                      //  MessageBox.Show(user.IdUser + " " + user.Name + " " + user.IdRole);
 
 
 

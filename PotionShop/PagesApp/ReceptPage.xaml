@@ -5,7 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:PotionShop.PagesApp"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+    Height="450"
+      Width="800"
       Title="ReceptPage"
       Background="White"
       >
@@ -41,7 +42,7 @@
             TextAlignment="Center"
             Grid.ColumnSpan="4"
             Grid.RowSpan="5"
-            Background="AliceBlue"
+            Background="LightBlue"
             TextWrapping="Wrap" 
             Text="Consumable"
             VerticalAlignment="Top" Height="196" Width="267" Margin="79,39,0,0" Grid.Column="2"/>
@@ -98,6 +99,8 @@
             Grid.Column="3"
             HorizontalAlignment="Left" 
             Margin="71,0,0,0"
+            FontSize="20"
+            
             TextWrapping="Wrap" 
             Text="Create recept" 
             VerticalAlignment="Center" Grid.ColumnSpan="3" Width="128"/>
