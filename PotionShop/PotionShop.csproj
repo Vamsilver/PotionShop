@@ -153,9 +153,6 @@
     <Compile Include="ADOApp\Storage.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="ADOApp\sysdiagrams.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="ADOApp\TypeConsumable.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

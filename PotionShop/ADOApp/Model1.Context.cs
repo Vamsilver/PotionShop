@@ -13,10 +13,10 @@ namespace PotionShop.ADOApp
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class PotionShopVSMEntities : DbContext
+    public partial class PotionShopEntities : DbContext
     {
-        public PotionShopVSMEntities()
-            : base("name=PotionShopVSMEntities")
+        public PotionShopEntities()
+            : base("name=PotionShopEntities1")
         {
         }
     
@@ -39,7 +39,6 @@ namespace PotionShop.ADOApp
         public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<Sale> Sale { get; set; }
         public virtual DbSet<Storage> Storage { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<TypeConsumable> TypeConsumable { get; set; }
         public virtual DbSet<TypeStorage> TypeStorage { get; set; }
         public virtual DbSet<UnitOfMeasurement> UnitOfMeasurement { get; set; }

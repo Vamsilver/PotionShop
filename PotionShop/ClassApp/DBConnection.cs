@@ -9,7 +9,7 @@ namespace PotionShop.ClassApp
 {
     public class DBConnection
     {
-        // public static PotionShopEntities Connection = new PotionShopEntities();
-        public static PotionShopVSMEntities Connection = new PotionShopVSMEntities();
+        public static PotionShopEntities Connection = new PotionShopEntities();
+      //   public static PotionShopEntities1 Connection = new PotionShopEntities1();
     }
 }
