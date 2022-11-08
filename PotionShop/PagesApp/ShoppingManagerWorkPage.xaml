@@ -9,7 +9,6 @@
       Title="ShoppingManagerWorkPage">
 
     <Grid>
-        <DataGrid x:Name="ConsumableGrid" AutoGenerateColumns="True" d:ItemsSource="{d:DynamicResource ResourceKey=consumables}" IsReadOnly="True" PreviewKeyDown="ConsumableGrid_PreviewKeyDown">
-        </DataGrid>
+        <DataGrid x:Name="ConsumableGrid" AutoGenerateColumns="True" d:ItemsSource="{d:DynamicResource ResourceKey=consumables}" IsReadOnly="True" PreviewKeyDown="ConsumableGrid_PreviewKeyDown" PreviewMouseDoubleClick="ConsumableGrid_PreviewMouseDoubleClick" />
     </Grid>
 </Page>

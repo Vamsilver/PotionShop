@@ -48,7 +48,7 @@ namespace PotionShop.PagesApp
                         };
                         NewUser.Authorization.Add(NewLogin);
                         NewUser.Name = TxtName.Text;
-                        NewUser.IdRole = 2;
+                        NewUser.IdRole = 1;
                         DBConnection.Connection.User.Add(NewUser);
                         DBConnection.Connection.SaveChanges();
                         NavigationService.GoBack();

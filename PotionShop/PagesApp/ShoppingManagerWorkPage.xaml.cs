@@ -41,17 +41,27 @@ namespace PotionShop.PagesApp
 
         private void ConsumableGrid_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if(ConsumableGrid.SelectedItem != null)
+            if(e.Key == Key.Enter)
             {
-                if(e.Key == Key.Enter)
-                {
-                    var result = MessageBox.Show("Хотите заказать еще?", "Заказать еще", MessageBoxButton.YesNo);
+                OrderGoods();
+            }
+        }
 
-                    if (result == MessageBoxResult.Yes)
-                    {
-                        NavigationService.Navigate(new PurchasePage((ConsumableKeeping)ConsumableGrid.SelectedItem));
-                        RefreshPage();
-                    }
+        private void ConsumableGrid_PreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            OrderGoods();
+        }
+
+        private void OrderGoods()
+        {
+            if (ConsumableGrid.SelectedItem != null)
+            {
+                var result = MessageBox.Show("Хотите заказать еще?", "Заказать еще", MessageBoxButton.YesNo);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    NavigationService.Navigate(new PurchasePage((ConsumableKeeping)ConsumableGrid.SelectedItem));
+                    RefreshPage();
                 }
             }
         }
